@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f7f6">
+  <meta name="description" content="Mask emails, phone numbers, card numbers, IP addresses, and API secrets before sharing text. Everything stays in your browser.">
+  <title>SafePaste — Redact private details before sharing</title>
+  <style>
+    :root{--ink:#162a2c;--muted:#64777a;--line:#dbe5e4;--paper:#fff;--wash:#f4f7f6;--teal:#14777a;--teal-soft:#e5f4f2;--amber:#9b671b;--amber-soft:#fff6df;--red:#a74848;--shadow:0 15px 42px #1834360d}
+    *{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}
+    .top{height:66px;border-bottom:1px solid var(--line);background:#ffffffdc;display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1120px)/2))}.brand{display:flex;align-items:center;gap:10px;font-weight:760;letter-spacing:-.035em}.mark{width:34px;height:34px;border-radius:11px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:18px}.private{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}.lock{color:var(--teal);font-size:14px}
+    main{max-width:1120px;margin:auto;padding:44px 22px 66px}.eyebrow{color:var(--teal);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:750}h1{font-size:clamp(32px,4.2vw,48px);letter-spacing:-.06em;line-height:1.06;margin:10px 0}.intro{color:var(--muted);font-size:16px;max-width:720px;margin:0 0 25px}.panel{border:1px solid var(--line);background:var(--paper);border-radius:15px;box-shadow:var(--shadow)}
+    .options{padding:16px 18px;margin-bottom:13px}.head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.head h2{font-size:13px;margin:0}.options-hint{font-size:10px;color:var(--muted)}.check-grid{display:flex;gap:8px;flex-wrap:wrap}.check{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-size:11px;color:#344c4e;cursor:pointer}.check input{accent-color:var(--teal);margin:0}.check:has(input:checked){background:var(--teal-soft);border-color:#aad6d1}.custom{margin-top:12px}.custom label{display:block;font-size:11px;font-weight:700;margin-bottom:5px}.custom textarea{min-height:57px;max-height:120px;resize:vertical;width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;color:var(--ink);outline:0;font:11px/1.5 ui-monospace,monospace}.custom textarea:focus,.editor:focus-visible,button:focus-visible{outline:3px solid #68b5b177;outline-offset:2px}.custom-hint{font-size:10px;color:var(--muted);margin-top:4px}
+    .editors{display:grid;grid-template-columns:1fr 1fr;gap:13px}.editor-card{overflow:hidden}.editor-head{height:44px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 13px}.editor-head b{font-size:12px}.editor-head span{font-size:10px;color:var(--muted)}.editor{display:block;resize:vertical;width:100%;min-height:278px;border:0;padding:13px;background:#fff;color:#253c3e;outline:0;font:12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace}.editor:disabled{background:#f9fbfa}.editor::placeholder{color:#95a5a6}.counts{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.count{font-size:10px;padding:5px 8px;border-radius:20px;background:#edf2f1;color:#425758}.count b{color:var(--teal)}
+    .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:13px 0 0}.btn{height:38px;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);font-size:11px;font-weight:700}.btn:hover{background:#f8fbfa}.btn.primary{background:var(--teal);border-color:var(--teal);color:white}.btn.primary:hover{background:#0f6265}.btn:disabled{opacity:.55;cursor:wait}.spacer{flex:1}.status{font-size:10px;color:var(--muted);min-height:16px;margin-top:8px}.status.warn{color:var(--amber)}
+    .notice{margin-top:17px;padding:12px 14px;border:1px solid #f0d9a5;background:var(--amber-soft);color:#745219;border-radius:10px;font-size:11px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:20px}.steps article{padding:13px;border-radius:11px;background:#e8efec}.steps b{display:block;font-size:11px;margin-bottom:3px}.steps span{font-size:10px;color:var(--muted)}footer{border-top:1px solid var(--line);padding:20px;text-align:center;font-size:10px;color:var(--muted)}
+    @media(max-width:720px){main{padding-top:32px}.editors{grid-template-columns:1fr}.editor{min-height:205px}.steps{grid-template-columns:1fr}.private{display:none}}@media(max-width:430px){main{padding-left:13px;padding-right:13px}.options{padding:14px}.head{align-items:flex-start;flex-direction:column}.check-grid{gap:6px}.check{font-size:10px;padding:7px}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="brand"><span class="mark" aria-hidden="true">⌑</span> SafePaste</div><div class="private"><span class="lock" aria-hidden="true">●</span> Local-only processing · Nothing is uploaded</div></header>
+  <main>
+    <div class="eyebrow">Day 12 · Private text cleanup</div>
+    <h1>Remove private details before you share.</h1>
+    <p class="intro">Mask contact details and common secrets in logs, support messages, and copied text. Review the result before sending it anywhere.</p>
+    <section class="panel options" aria-labelledby="scan-title">
+      <div class="head"><h2 id="scan-title">Choose what to redact</h2><span class="options-hint">Common patterns · review each result before sharing</span></div>
+      <div class="check-grid">
+        <label class="check"><input type="checkbox" value="email" checked> Email addresses</label>
+        <label class="check"><input type="checkbox" value="phone" checked> Phone numbers</label>
+        <label class="check"><input type="checkbox" value="card" checked> Payment card numbers</label>
+        <label class="check"><input type="checkbox" value="ip" checked> IPv4 addresses</label>
+        <label class="check"><input type="checkbox" value="secret" checked> Common API secrets</label>
+      </div>
+      <div class="custom"><label for="custom-values">Other text to hide <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea id="custom-values" placeholder="One exact word, ID, or phrase per line"></textarea><div class="custom-hint">Custom entries are matched as literal text, without case sensitivity. Avoid adding something you don't want replaced.</div></div>
+    </section>
+    <section class="editors" aria-label="Text redaction editors">
+      <article class="panel editor-card"><div class="editor-head"><b>Text to clean</b><span id="input-size">0 characters</span></div><textarea id="source" class="editor" spellcheck="false" aria-label="Text to redact" placeholder="Paste a log, message, or other text here…"></textarea></article>
+      <article class="panel editor-card"><div class="editor-head"><b>Redacted result</b><span id="output-size">Ready when you are</span></div><textarea id="result" class="editor" spellcheck="false" aria-label="Redacted text result" placeholder="Your cleaned text will appear here…"></textarea></article>
+    </section>
+    <div class="counts" id="counts" aria-live="polite"><span class="count">Emails <b>0</b></span><span class="count">Phones <b>0</b></span><span class="count">Cards <b>0</b></span><span class="count">IPs <b>0</b></span><span class="count">Secrets <b>0</b></span><span class="count">Custom <b>0</b></span></div>
+    <div class="toolbar"><button class="btn primary" id="redact">Redact selected details</button><button class="btn" id="sample">Try sample</button><button class="btn" id="copy">Copy redacted text</button><button class="btn" id="download">Download .txt</button><span class="spacer"></span><button class="btn" id="clear">Clear</button></div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+    <div class="notice"><b>Check before sharing:</b> automatic pattern matching can miss unusual private data or mask ordinary numbers by mistake. Review the cleaned text and add names, IDs, or other details using the custom list. This tool runs locally; your text is never uploaded or saved by the app.</div>
+    <section class="steps" aria-label="How to use SafePaste"><article><b>1. Paste your text</b><span>Logs, copied messages, or other plain text.</span></article><article><b>2. Pick what to hide</b><span>Select common detail types and add exact custom phrases.</span></article><article><b>3. Review the result</b><span>Copy or save only after checking for anything missed.</span></article></section>
+  </main>
+  <footer>SafePaste · Browser-only processing · No accounts, uploads, analytics, or external libraries</footer>
+  <script>
+    (()=>{
+      const $=id=>document.getElementById(id);const labels={email:'[EMAIL]',phone:'[PHONE]',card:'[CARD]',ip:'[IP]',secret:'[SECRET]',custom:'[REDACTED]'};let counts={};
+      const checked=key=>!!document.querySelector(`.check input[value="${key}"]`).checked;
+      function luhn(candidate){const digits=candidate.replace(/\D/g,'');if(digits.length<13||digits.length>19)return false;let sum=0,alt=false;for(let i=digits.length-1;i>=0;i--){let n=Number(digits[i]);if(alt){n*=2;if(n>9)n-=9}sum+=n;alt=!alt}return sum%10===0}
+      function redact(){const original=$('source').value;if(original.length>250000){$('status').textContent='Text is limited to 250,000 characters.';$('status').classList.add('warn');return}let text=original;counts={email:0,phone:0,card:0,ip:0,secret:0,custom:0};
+        const replace=(key,regex,filter=()=>true)=>{text=text.replace(regex,(m)=>{if(!filter(m))return m;counts[key]++;return labels[key]})};
+        if(checked('card'))replace('card',/(?<!\d)(?:\d[ -]?){12,18}\d(?!\d)/g,m=>luhn(m));
+        if(checked('secret')){
+          replace('secret',/\b(?:api[_ -]?key|access[_ -]?token|client[_ -]?secret|password|secret|token)\b\s*[:=]\s*["']?[^\s"'&,;]{6,}/gi);
+          replace('secret',/\b(?:sk|pk)_(?:live|test)_[A-Za-z0-9]{8,}\b/g);
+          replace('secret',/\bAKIA[A-Z0-9]{16}\b/g);
+          replace('secret',/\b(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,})\b/g);
+          replace('secret',/\bAIza[0-9A-Za-z_-]{30,}\b/g);
+        }
+        if(checked('email'))replace('email',/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi);
+        if(checked('ip'))replace('ip',/\b(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\b/g);
+        if(checked('phone'))replace('phone',/(?<!\w)\+?\d[\d\s().-]{5,}\d(?!\w)/g,m=>{const d=m.replace(/\D/g,'');return d.length>=7&&d.length<=15&&!/^\d{4}[-/.]\d{1,2}[-/.]\d{1,2}$/.test(m.trim())});
+        const custom=$('custom-values').value.split(/\r?\n/).map(x=>x.trim()).filter(x=>x.length>=2);for(const phrase of [...new Set(custom)].sort((a,b)=>b.length-a.length)){const escaped=phrase.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');replace('custom',new RegExp(escaped,'gi'))}
+        $('result').value=text;$('output-size').textContent=`${text.length.toLocaleString()} characters`;$('status').classList.remove('warn');$('status').textContent=original?'Finished. Review the result; pattern detection can miss unusual formats.':'Paste some text first.';renderCounts();
+      }
+      function renderCounts(){const names=['email','phone','card','ip','secret','custom'];$('counts').replaceChildren(...names.map(k=>{const span=document.createElement('span');span.className='count';span.append(document.createTextNode(`${k==='ip'?'IPs':k[0].toUpperCase()+k.slice(1)} `));const b=document.createElement('b');b.textContent=String(counts[k]||0);span.append(b);return span}))}
+      $('source').addEventListener('input',()=>{$('input-size').textContent=`${$('source').value.length.toLocaleString()} characters`});document.querySelectorAll('.check input').forEach(x=>x.addEventListener('change',()=>{if($('result').value)redact()}));$('custom-values').addEventListener('change',()=>{if($('result').value)redact()});$('redact').addEventListener('click',redact);
+      $('sample').addEventListener('click',()=>{$('source').value='Support request from sara@example.test\nCall back: +1 (415) 555-0136\nTest card: 4111 1111 1111 1111\nServer IP: 192.168.1.42\napi_key=demo_secret_value_12345';$('input-size').textContent=`${$('source').value.length} characters`;$('custom-values').value='';redact()});
+      $('copy').addEventListener('click',async()=>{if(!$('result').value)return $('status').textContent='Redact some text first.';try{await navigator.clipboard.writeText($('result').value);$('status').textContent='Redacted text copied. Review it before sharing.'}catch{$('status').textContent='Clipboard access is unavailable. You can download the text instead.'}});
+      $('download').addEventListener('click',()=>{if(!$('result').value)return $('status').textContent='Redact some text first.';const url=URL.createObjectURL(new Blob([$('result').value],{type:'text/plain;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='redacted-text.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);$('status').textContent='Redacted text downloaded.'});
+      $('clear').addEventListener('click',()=>{$('source').value='';$('result').value='';$('custom-values').value='';$('input-size').textContent='0 characters';$('output-size').textContent='Ready when you are';$('status').textContent='Cleared from the page.';counts={email:0,phone:0,card:0,ip:0,secret:0,custom:0};renderCounts()});renderCounts();
+    })();
+  </script>
+</body>
+</html>
